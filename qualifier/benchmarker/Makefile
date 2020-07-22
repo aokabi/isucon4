@@ -29,7 +29,7 @@ benchmarker: deps user/dummy_users.go
 
 goget:
 	go get -u github.com/codegangsta/cli
-	go get github.com/WOVNio/gokogiri
+	go get github.com/aokabi/gokogiri
 
 # deps: Gomfile ./.gondler
 deps: goget
