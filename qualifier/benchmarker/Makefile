@@ -20,14 +20,19 @@ test:
 	gondler test -v ./...
 
 benchmarker: deps user/dummy_users.go
-	gondler build -ldflags "${LD_FLAGS}"
+	go build -ldflags "${LD_FLAGS}"
 
 ./.gondler: Gomfile
 	@echo "--> Installing build dependencies"
 	gondler install
 	touch .gondler
 
-deps: Gomfile ./.gondler
+goget:
+	go get -u github.com/codegangsta/cli
+	go get -u github.com/WOVNio/gokogiri
+
+# deps: Gomfile ./.gondler
+deps: goget
 
 debug: debugmode=true
 debug: benchmarker
