@@ -1,5 +1,5 @@
 # vim: ft=ruby
 itself "github.com/isucon/isucon4/qualifier/benchmarker"
 gom 'github.com/codegangsta/cli'
-gom 'github.com/moovweb/gokogiri'
+gom 'github.com/moovweb/gokogiri', commit: '32a8b96fe28e9a1be131f876b871da09f0aa73cd'
 
