@@ -1,15 +1,16 @@
-GIT_COMMIT=$(shell git log --oneline -n 1 . | awk '{print $$1}')
+#GIT_COMMIT=$(shell git log --oneline -n 1 . | awk '{print $$1}')
+GIT_COMMIT=""
 DUTMH=$(shell ./md5 sql/dummy_users.tsv)
 DUUTMH=$(shell ./md5 sql/dummy_users_used.tsv)
 
 debugmode = false
 LD_FLAGS = \
-	-X main.GIT_COMMIT \"${GIT_COMMIT}\" \
-	-X github.com/aokabi/isucon4/qualifier/benchmarker/user.DummyUsersTSVMD5 \"${DUTMH}\" \
-	-X github.com/aokabi/isucon4/qualifier/benchmarker/user.DummyUsersUsedTSVMD5 \"${DUUTMH}\" \
-	-X github.com/aokabi/isucon4/qualifier/benchmarker/user.DebugMode \"${debugmode}\" \
-	-X main.DebugMode \"${debugmode}\" \
-	-X main.SkipMetadataMode \"${skipmetadata}\"
+	-X main.GIT_COMMIT=\"${GIT_COMMIT}\" \
+	-X github.com/aokabi/isucon4/qualifier/benchmarker/user.DummyUsersTSVMD5=\"${DUTMH}\" \
+	-X github.com/aokabi/isucon4/qualifier/benchmarker/user.DummyUsersUsedTSVMD5=\"${DUUTMH}\" \
+	-X github.com/aokabi/isucon4/qualifier/benchmarker/user.DebugMode=\"${debugmode}\" \
+	-X main.DebugMode=\"${debugmode}\" \
+	-X main.SkipMetadataMode=\"${skipmetadata}\"
 
 ifeq ($(filter true false,${debugmode}),)
   $(error debugmode should be true or false)

@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/codegangsta/cli"
+	"github.com/urfave/cli"
 	"github.com/aokabi/isucon4/qualifier/benchmarker/ip"
 	"github.com/aokabi/isucon4/qualifier/benchmarker/user"
 	"github.com/aokabi/isucon4/qualifier/benchmarker/worker"
@@ -55,35 +55,35 @@ func init() {
 	app.Usage = "ISUCON4 benchmarker for qualifier"
 	app.Version = "v2 " + GIT_COMMIT
 
-	app.Commands = []cli.Command{
+	app.Commands = []*cli.Command{
 		{
 			Name:      "bench",
-			ShortName: "b",
+			Aliases: []string{"b"},
 			Usage:     "Run benchmark",
 			Flags: []cli.Flag{
-				cli.StringFlag{
+				&cli.StringFlag{
 					Name:   "api-key",
 					Value:  "",
 					Usage:  "Benchmark API Key",
-					EnvVar: "ISUCON4_BENCH_API_KEY",
+					EnvVars: []string{"ISUCON4_BENCH_API_KEY"},
 				},
-				cli.IntFlag{
+				&cli.IntFlag{
 					Name:   "workload",
 					Value:  1,
 					Usage:  "Benchmark workload",
-					EnvVar: "ISUCON4_BENCH_WORKLOAD",
+					EnvVars: []string{"ISUCON4_BENCH_WORKLOAD"},
 				},
-				cli.StringFlag{
+				&cli.StringFlag{
 					Name:   "init",
 					Value:  defaultInit,
 					Usage:  "Bench init script path",
-					EnvVar: "ISUCON4_BENCH_INIT",
+					EnvVars: []string{"ISUCON4_BENCH_INIT"},
 				},
-				cli.StringFlag{
+				&cli.StringFlag{
 					Name:   "host",
 					Value:  "localhost",
 					Usage:  "Bench Endpoint host",
-					EnvVar: "ISUCON4_BENCH_HOST",
+					EnvVars: []string{"ISUCON4_BENCH_HOST"},
 				},
 			},
 			Action: benchmark,
@@ -98,7 +98,7 @@ func main() {
 	app.Run(os.Args)
 }
 
-func benchmark(c *cli.Context) {
+func benchmark(c *cli.Context) error {
 	checkInstanceMetadata()
 
 	logger.Print("type:info\tmessage:launch benchmarker")
@@ -155,6 +155,7 @@ func benchmark(c *cli.Context) {
 	sendScore(c, totalScore, totalSuccesses, totalFails)
 
 	logger.Printf("type:score\tsuccess:%d\tfail:%d\tscore:%d", totalSuccesses, totalFails, int64(totalScore))
+	return nil
 }
 
 func initEnvironment(c *cli.Context) {

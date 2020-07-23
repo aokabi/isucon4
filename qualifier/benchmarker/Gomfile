@@ -1,6 +1,6 @@
 # vim: ft=ruby
 itself 'github.com/aokabi/isucon4/qualifier/benchmarker'
-gom 'github.com/codegangsta/cli'
+gom 'github.com/urfave/cli'
 gom 'github.com/aokabi/gokogiri'
 
 
