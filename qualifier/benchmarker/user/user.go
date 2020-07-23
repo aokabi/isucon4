@@ -1,7 +1,7 @@
 package user
 
 import (
-	"github.com/isucon/isucon4/qualifier/benchmarker/ip"
+	"github.com/aokabi/isucon4/qualifier/benchmarker/ip"
 	"sync"
 	"sync/atomic"
 	"time"
