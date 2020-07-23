@@ -20,7 +20,7 @@ test:
 	gondler test -v ./...
 
 benchmarker: deps user/dummy_users.go
-	go build -ldflags "${LD_FLAGS}"
+	gondler build -ldflags "${LD_FLAGS}"
 
 ./.gondler: Gomfile
 	@echo "--> Installing build dependencies"
@@ -31,8 +31,8 @@ goget:
 	go get -u github.com/codegangsta/cli
 	go get github.com/aokabi/gokogiri
 
-# deps: Gomfile ./.gondler
-deps: goget
+deps: Gomfile ./.gondler
+# deps: goget
 
 debug: debugmode=true
 debug: benchmarker
